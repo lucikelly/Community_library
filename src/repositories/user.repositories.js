@@ -11,19 +11,20 @@ db.run(`
   `)
 
 function createUserReposiory(newUser){
-  return new Promise((res, rej )=> {
+  return new Promise((resolve, reject )=> {
     const {username, email, password, avatar} = newUser
     db.run(
       `
         INSERT INTO users (username, email, password, avatar)
         VALUES (?, ?, ?, ?)
       `
+      ,
       [username, email, password, avatar],
       (err) => {
         if(err) {
-          rej(err)
+          reject(err)
         } else {
-          res({message: 'User creted'})
+          resolve({id: this.lastID, ...newUser})
         }
       }
     )
