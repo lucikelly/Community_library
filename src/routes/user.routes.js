@@ -5,6 +5,8 @@ import {
   validateUserId,
 } from "../middlewares/validation.middlewares.js";
 import { userSchema } from "../schema/user.schema.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+
 
 const router = Router();
 
@@ -13,6 +15,13 @@ router.post(
   validate(userSchema),
   userController.createUserController
 );
+
+router.post(
+  "/users/login",
+  userController.loginUserController
+);
+
+router.use(authMiddleware) // vai usar o middleware para todos os metodos abaixo dele
 
 router.get("/users", userController.findAllUsercontroller);
 router.get("/users/:id", validateUserId, userController.findUserByIdController);
