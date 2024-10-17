@@ -6,6 +6,10 @@ const bookSchema = z.object({
 
 })
 
+const bookSchemaId = z.object({
+  bookId: z.number().int().positive('Book ID must be a positive integer')
+})
 export {
-  bookSchema
+  bookSchema,
+  bookSchemaId
 }
