@@ -1,58 +1,49 @@
 import loanService from "../service/loan.service.js";
-
-async function createLoanController(req, res)  {
-  const { bookId, dueDate } = req.body
-  const userId = req.userId
-
+async function createLoanController(req, res) {
+  const { bookId, dueDate } = req.body;
+  const userId = req.userId;
   try {
     const createdLoan = await loanService.createLoanService(
       userId,
-      bookId, 
+      bookId,
       dueDate
-    )
-
-    return res.status(201).send(createdLoan)
+    );
+    return res.status(201).send(createdLoan);
   } catch (e) {
-    return res.status(400).send(e.message)
+    return res.status(400).send(e.message);
   }
 }
-
-async function findAllLoansController(req, res ) {
+async function findAllLoansController(req, res) {
   try {
-    const loans = await loanService.findAllLoansService()
-    res.send(loans)
+    const loans = await loanService.findAllLoansService();
+    res.send(loans);
   } catch (e) {
-    res.status(404).send(e.message)
+    res.status(404).send(e.message);
   }
 }
-
-
 async function findLoanByIdController(req, res) {
-  const loanId = req.params.id
-  
+  const loanId = req.params.id;
+
   try {
-    
-    const loan = await loanService.findLoanByIdService(loanId)
-    return res.send(loan)
+    const loan = await loanService.findLoanByIdService(loanId);
+    return res.send(loan);
   } catch (e) {
-    res.status(400).send(e.message)
+    res.status(400).send(e.message);
   }
-
 }
-
 async function deleteLoanController(req, res) {
-  const loanId = req.params.id
-  const userId = req.userId
+  const loanId = req.params.id;
+  const userId = req.userId;
   try {
-    const response = await loanService.deleteLoanService(loanId, userId)
-    return res.send(response)
+    const response = await loanService.deleteLoanService(loanId, userId);
+    return res.send(response);
   } catch (e) {
-    res.status(400).send(e.message)
+    res.status(400).send(e.message);
   }
 }
 export default {
   createLoanController,
   findAllLoansController,
   findLoanByIdController,
-  deleteLoanController
-}
+  deleteLoanController,
+};
